@@ -5,68 +5,113 @@
   <title>GamingDroid - Transformez votre Android en console portable</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+    }
+    .fade-in {
+      animation: fadeIn 1.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform: translateY(30px);}
+      to { opacity:1; transform: translateY(0);}
+    }
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34,197,94, 0.7);}
+      70% { box-shadow: 0 0 0 10px rgba(34,197,94, 0);}
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94, 0);}
+    }
+    .zoom-img:hover {
+      transform: scale(1.07);
+      z-index: 10;
+      box-shadow: 0 8px 24px 0 rgba(34,197,94, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+  </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen">
+<body class="text-gray-100 min-h-screen">
   <!-- Navbar -->
-  <nav class="bg-gray-900 border-b border-gray-800">
+  <nav class="bg-gray-900 border-b border-green-500/40 shadow-lg fade-in sticky top-0 z-40">
     <div class="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
       <div class="flex items-center space-x-3">
-        <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="GamingDroid Logo" class="w-8 h-8">
-        <span class="font-bold text-xl text-green-400">GamingDroid</span>
+        <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="GamingDroid Logo" class="w-8 h-8 drop-shadow-lg animate-bounce">
+        <span class="font-bold text-xl text-green-400 tracking-wide">GamingDroid</span>
       </div>
       <div class="space-x-6">
-        <a href="#infos" class="hover:text-green-400 transition">Infos</a>
-        <a href="#screenshots" class="hover:text-green-400 transition">Screenshots</a>
-        <a href="#installer" class="hover:text-green-400 transition">Installer</a>
+        <a href="#infos" class="hover:text-green-400 transition font-medium">Infos</a>
+        <a href="#screenshots" class="hover:text-green-400 transition font-medium">Screenshots</a>
+        <a href="#installer" class="hover:text-green-400 transition font-medium">Installer</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="py-16 px-4 text-center bg-gradient-to-br from-gray-900 to-gray-800">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-green-400 mb-4">Transformez votre Android en console de jeu portable</h1>
-    <p class="text-lg md:text-xl mb-8 text-gray-300 max-w-2xl mx-auto">GamingDroid est un outil qui vous permet de transformer facilement votre appareil Android en une véritable console portable, avec une interface dédiée, support manette, et accès à des milliers de jeux rétro et modernes.</p>
-    <a href="#installer" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-3 rounded-lg shadow transition">Installer GamingDroid</a>
+  <section class="py-20 px-4 text-center bg-gradient-to-br from-gray-900 to-gray-800 fade-in">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-green-400 mb-6 drop-shadow-lg">Transformez votre Android en console de jeu portable</h1>
+    <p class="text-lg md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto">GamingDroid est un outil qui vous permet de transformer facilement votre appareil Android en une véritable console portable, avec une interface dédiée, des émulateurs intégrés, et une expérience gaming optimisée.</p>
+    <a href="#installer" class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold px-10 py-4 rounded-xl shadow-lg transition pulse text-xl gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
+      Installer GamingDroid
+    </a>
   </section>
 
   <!-- Infos Section -->
-  <section id="infos" class="max-w-5xl mx-auto py-12 px-4">
-    <h2 class="text-2xl font-bold text-green-400 mb-4">Qu'est-ce que GamingDroid ? (Certaines fonctions présentés ici sont peut être pas disponible à l'heure actuelle, pour plus d'informations contactez le développeur sur canny.io/gamedeck.)</h2>
-    <ul class="list-disc pl-6 text-lg mb-6 space-y-2">
+  <section id="infos" class="max-w-5xl mx-auto py-16 px-4 fade-in">
+    <h2 class="text-3xl font-bold text-green-400 mb-6">Qu'est-ce que GamingDroid ?</h2>
+    <ul class="list-disc pl-8 text-lg mb-8 space-y-2">
       <li>Interface optimisée pour le jeu sur écran tactile ou manette Bluetooth</li>
-      <li>Support multi-émulateur : retro, arcade, console portable (GBA, PSP, etc...)</li>
-      <li>Bibliothèque de jeux personnalisable et gestion des ROMs </li>
+      <li>Support multi-émulateur : rétro, arcade, console portable (GBA, PSP, etc...)</li>
+      <li>Bibliothèque de jeux personnalisable et gestion des ROMs</li>
       <li>Mode performance & gestion de la batterie</li>
       <li>Installation facile via un fichier .zip</li>
       <li>Compatible avec Android 7.0 et plus</li>
     </ul>
-    <div class="bg-gray-800 rounded-lg p-6 text-gray-200 shadow">
-      <p>GamingDroid est développé pour les passionnés de jeux vidéo qui veulent profiter de leur collection partout, sans compromis sur le plaisir ou la facilité d’utilisation. Personnalisez votre expérience, connectez une manette, et lancez-vous !</p>
+    <div class="bg-gray-800/90 rounded-2xl p-8 text-gray-200 shadow-xl border border-green-500/20">
+      <p>GamingDroid est développé pour les passionnés de jeux vidéo qui veulent profiter de leur collection partout, sans compromis sur le plaisir ou la facilité d’utilisation. Personnalisez votre expérience, profitez des mises à jour régulières et rejoignez une communauté de gamers mobiles !</p>
     </div>
   </section>
 
   <!-- Screenshots Section -->
-  <section id="screenshots" class="max-w-5xl mx-auto py-12 px-4">
-    <h2 class="text-2xl font-bold text-green-400 mb-6">Screenshots</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" alt="Menu GamingDroid" class="rounded-lg shadow border border-gray-700">
-      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=400&q=80" alt="Jeu rétro sur GamingDroid" class="rounded-lg shadow border border-gray-700">
-      <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Interface tactile GamingDroid" class="rounded-lg shadow border border-gray-700">
+  <section id="screenshots" class="max-w-5xl mx-auto py-16 px-4 fade-in">
+    <h2 class="text-3xl font-bold text-green-400 mb-8">Screenshots</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" alt="Menu GamingDroid" class="rounded-2xl shadow-lg border border-green-500/30 zoom-img transition">
+      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=400&q=80" alt="Jeu rétro sur GamingDroid" class="rounded-2xl shadow-lg border border-green-500/30 zoom-img transition">
+      <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Interface tactile GamingDroid" class="rounded-2xl shadow-lg border border-green-500/30 zoom-img transition">
     </div>
-    <p class="mt-4 text-gray-400 text-sm">Aperçu de l’interface et du lancement de jeux sur GamingDroid.</p>
+    <p class="mt-6 text-gray-400 text-base italic">Aperçu de l’interface et du lancement de jeux sur GamingDroid.</p>
   </section>
 
   <!-- Installer Section -->
-  <section id="installer" class="max-w-5xl mx-auto py-12 px-4 flex flex-col items-center">
-    <h2 class="text-2xl font-bold text-green-400 mb-4">Installer GamingDroid</h2>
-    <p class="mb-6 text-lg text-gray-300">Téléchargez le fichier <span class="font-mono text-green-300">GamingDroid.zip</span> et suivez les instructions pour installer sur votre appareil Android.</p>
-    <a href="GamingDroid.zip" download class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow transition mb-2">Télécharger le .zip</a>
-    <p class="text-gray-400 text-sm">Fichier sécurisé. Vérifiez l’activation des sources inconnues dans les paramètres Android pour installer les applications présentes dans le fichier .zip .</p>
+  <section id="installer" class="max-w-5xl mx-auto py-16 px-4 flex flex-col items-center fade-in">
+    <h2 class="text-3xl font-bold text-green-400 mb-6">Installer GamingDroid</h2>
+    <p class="mb-8 text-lg text-gray-300 text-center">Téléchargez le fichier <span class="font-mono text-green-300">GamingDroid.zip</span> et suivez les instructions pour installer sur votre appareil Android.</p>
+    <a href="GamingDroid.zip" download class="bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-xl shadow-xl transition pulse text-lg mb-3 flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
+      Télécharger le .zip
+    </a>
+    <p class="text-gray-400 text-base text-center">Fichier sécurisé. Vérifiez l’activation des sources inconnues dans les paramètres Android pour installer les applications présentes dans le fichier .zip.</p>
+  </section>
+
+  <!-- Contact / Social Section -->
+  <section class="max-w-5xl mx-auto py-8 px-4 flex justify-center gap-6 fade-in">
+    <a href="https://github.com/MxsbDream/GamingDroid" target="_blank" class="bg-gray-800 hover:bg-green-500 text-white rounded-full p-3 shadow-lg transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.386-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.304.762-1.604-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.468-2.381 1.236-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.018.005 2.045.138 3.003.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.804 5.624-5.475 5.921.43.369.823 1.096.823 2.211 0 1.597-.015 2.885-.015 3.277 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+    <a href="#" class="bg-gray-800 hover:bg-green-500 text-white rounded-full p-3 shadow-lg transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-1.686-.597-3.487-.889-5.315-.889-1.827 0-3.628.292-5.314.889-1.682.596-3.191 1.473-4.457 2.635-2.533 2.366-3.927 5.497-3.927 8.864s1.394 6.498 3.927 8.864c1.266 1.162 2.775 2.039 4.457 2.635 1.686.597 3.487.889 5.314.889 1.828 0 3.629-.292 5.315-.889 1.682-.596 3.191-1.473 4.457-2.635 2.533-2.366 3.927-5.497 3.927-8.864s-1.394-6.498-3.927-8.864c-1.266-1.162-2.775-2.039-4.457-2.635zM12 21.634c-5.313 0-9.634-4.321-9.634-9.634s4.321-9.634 9.634-9.634 9.634 4.321 9.634 9.634-4.321 9.634-9.634 9.634zm-2.918-12.634c0-1.604 1.314-2.918 2.918-2.918s2.918 1.314 2.918 2.918-1.314 2.918-2.918 2.918-2.918-1.314-2.918-2.918z"/></svg>
+    </a>
+    <!-- Ajoute d'autres icônes/links si tu veux -->
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 mt-12 py-6 text-center text-gray-500 text-sm">
-    © 2025 GamingDroid. Projet libre pour les gamers Android.
+  <footer class="bg-gray-900 mt-14 py-8 text-center text-gray-500 text-base fade-in">
+    © 2025 GamingDroid. Projet libre pour les gamers Android.<br>
+    <span class="text-green-400">Merci d'utiliser GamingDroid pour améliorer ton expérience de jeu sur Android. Un grand merci à Gamedeck ! </span>
   </footer>
 </body>
-  </html>
+                                                                                    </html>
