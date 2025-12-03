@@ -1,13 +1,13 @@
 {
   "games": [
     {
-      "slug": "cs2",
-      "title": "Counter-Strike 2",
-      "developer": "Valve",
+      "slug": "minecraft",
+      "title": "Minecraft",
+      "developer": "Mojang, Microsoft Studios",
       "price": 0,
-      "release_date": "2023-09-27",
-      "short_description": "Tactique de tir compétitive en équipe.",
-      "description": "<p>Counter-Strike 2 est la nouvelle génération du succès CS:GO, avec des mises à jour de moteur, une netteté d'images améliorée et des features pour les compétitions.</p>",
+      "release_date": "2000-00-00",
+      "short_description": "Explorez des serveurs massivement multijoueur directement du menu de jeu et jouez avec vos amis sur tous les appareils différents.",
+      "description": "<p>NA</p>",
       "steam_url": "https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/",
       "buy_url": "https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/",
       "header_image": "https://images.steamgriddb.com/file/sgdb-cdn/grid/1675/thumb-1675-portrait.jpg",
@@ -16,7 +16,7 @@
         "https://images.steamgriddb.com/file/sgdb-cdn/grid/1675/thumb-1675-1.jpg",
         "https://images.steamgriddb.com/file/sgdb-cdn/grid/1675/thumb-1675-2.jpg"
       ],
-      "tags": ["fps", "compétitif", "e-sport"]
+      "tags": ["Action", "Aventure"]
     },
     {
       "slug": "halo-infinite",
