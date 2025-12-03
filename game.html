@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GamingDroid — Détail jeu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small style for gallery */
+    .thumb { cursor: pointer; }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-[#071020] to-[#071522] text-slate-100 min-h-screen">
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 bg-white/3 backdrop-blur border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1118 0 9 9 0 01-18 0z" stroke="white" stroke-opacity="0.12" stroke-width="1.5"/></svg>
+        </div>
+        <span class="font-semibold">GamingDroid</span>
+      </a>
+
+      <nav class="hidden md:flex gap-3">
+        <a href="index.html#home" class="px-3 py-2 rounded">Accueil</a>
+        <a href="store.html" class="px-3 py-2 rounded bg-gradient-to-r from-blue-500 to-indigo-700">Store</a>
+        <a href="index.html#download" class="px-3 py-2 rounded border">Télécharger</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <div id="gameContainer" class="hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div id="hero" class="rounded-lg overflow-hidden shadow-lg">
+            <img id="heroImg" src="" alt="" class="w-full h-96 object-cover"/>
+          </div>
+
+          <div class="mt-5 grid grid-cols-3 gap-3" id="gallery"></div>
+        </div>
+
+        <aside class="bg-white/4 rounded-lg p-4">
+          <h1 id="title" class="text-2xl font-bold"></h1>
+          <div id="meta" class="mt-2 text-slate-300"></div>
+          <div class="mt-4 text-rose-300 font-bold" id="price"></div>
+
+          <div class="mt-6 flex gap-2">
+            <a id="buyBtn" class="px-4 py-2 rounded bg-indigo-600 hover:opacity-95">Acheter / Installer</a>
+            <a id="steamLink" class="px-4 py-2 rounded border" target="_blank">Page Steam</a>
+          </div>
+
+          <div class="mt-6 text-sm text-slate-300" id="shortdesc"></div>
+        </aside>
+      </div>
+
+      <section class="mt-8">
+        <h2 class="text-xl font-semibold">Description</h2>
+        <div id="description" class="mt-3 text-slate-300"></div>
+      </section>
+    </div>
+
+    <div id="notFound" class="text-center text-slate-300">
+      <p class="text-lg">Jeu introuvable.</p>
+      <p class="mt-3"><a href="store.html" class="text-indigo-300 underline">Retour au Store</a></p>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
+    <button id="lbClose" class="absolute top-6 right-6 text-white p-2 bg-white/5 rounded">✕</button>
+    <img id="lbImg" class="max-h-[85vh] rounded-lg" src="" alt=""/>
+  </div>
+
+  <script>
+    // Récupère slug depuis query string
+    function getSlug() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('slug') || '';
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/[&<>"']/g, function (m) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+      });
+    }
+
+    async function loadAndRender() {
+      const slug = getSlug();
+      try {
+        const res = await fetch('data/games.json');
+        const data = await res.json();
+        const game = (data.games || []).find(g => g.slug === slug);
+        if (!game) {
+          document.getElementById('notFound').classList.remove('hidden');
+          return;
+        }
+
+        document.getElementById('gameContainer').classList.remove('hidden');
+        document.getElementById('notFound').classList.add('hidden');
+
+        document.getElementById('title').textContent = game.title;
+        document.getElementById('meta').innerHTML = `${escapeHtml(game.developer)} • ${escapeHtml(game.release_date)}`;
+        document.getElementById('price').textContent = game.price === 0 ? 'Gratuit' : game.price + '€';
+        document.getElementById('shortdesc').textContent = game.short_description;
+        document.getElementById('description').innerHTML = game.description;
+        document.getElementById('heroImg').src = game.header_image;
+        document.getElementById('heroImg').alt = game.title;
+
+        document.getElementById('steamLink').href = game.steam_url || '#';
+        document.getElementById('buyBtn').href = game.buy_url || '#';
+
+        // gallery
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = '';
+        (game.images || []).forEach((img, idx) => {
+          const b = document.createElement('div');
+          b.className = 'thumb rounded overflow-hidden bg-black';
+          b.innerHTML = `<img src="${img}" alt="${escapeHtml(game.title)} ${idx+1}" class="w-full h-28 object-cover"/>`;
+          b.addEventListener('click', () => openLightbox(img));
+          // fallback
+          b.querySelector('img').addEventListener('error', (e) => {
+            e.target.src = 'https://picsum.photos/seed/' + encodeURIComponent(game.slug + idx) + '/800/450';
+          });
+          gallery.appendChild(b);
+        });
+
+        // fallback hero
+        document.getElementById('heroImg').addEventListener('error', (e) => {
+          e.target.src = 'https://picsum.photos/seed/' + encodeURIComponent(game.slug) + '/1200/700';
+        });
+
+      } catch (e) {
+        console.error('Erreur:', e);
+        document.getElementById('notFound').classList.remove('hidden');
+      }
+    }
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbClose = document.getElementById('lbClose');
+    function openLightbox(src) {
+      lbImg.src = src;
+      lb.classList.remove('hidden');
+    }
+    lbClose.addEventListener('click', () => {
+      lb.classList.add('hidden');
+      lbImg.src = '';
+    });
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) { lb.classList.add('hidden'); lbImg.src = ''; }
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { lb.classList.add('hidden'); lbImg.src = ''; } });
+
+    loadAndRender();
+  </script>
+</body>
+  </html>
