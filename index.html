@@ -1,117 +1,302 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>GamingDroid - Transformez votre Android en console portable</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GamingDroid (bêta publique)</title>
+  <meta name="description" content="VortexOS — Une interface gaming moderne et stylée.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Configuration Tailwind (via CDN) pour personnaliser rapidement
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vortex: {
+              50:  '#f2f7ff',
+              100: '#dbeeff',
+              300: '#90c6ff',
+              500: '#4aa3ff',
+              700: '#0f6fe6',
+              900: '#0b3f66'
+            },
+            neon: '#00ffd5'
+          },
+          boxShadow: {
+            'neon-lg': '0 10px 30px rgba(74,163,255,0.12), 0 0 30px rgba(0,255,213,0.06)'
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      min-height: 100vh;
-    }
-    .fade-in {
-      animation: fadeIn 1.2s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity:0; transform: translateY(30px);}
-      to { opacity:1; transform: translateY(0);}
-    }
-    .pulse {
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(34,197,94, 0.7);}
-      70% { box-shadow: 0 0 0 10px rgba(34,197,94, 0);}
-      100% { box-shadow: 0 0 0 0 rgba(34,197,94, 0);}
-    }
-    .zoom-img:hover {
-      transform: scale(1.07);
-      z-index: 10;
-      box-shadow: 0 8px 24px 0 rgba(34,197,94, 0.2);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+    /* petites améliorations pour la lightbox */
+    .fade-enter { opacity: 0; transform: scale(.98); }
+    .fade-enter-active { opacity: 1; transform: scale(1); transition: all .18s ease-out; }
+    .fade-leave { opacity: 1; transform: scale(1); }
+    .fade-leave-active { opacity: 0; transform: scale(.98); transition: all .15s ease-in; }
   </style>
 </head>
-<body class="text-gray-100 min-h-screen">
-  <!-- Navbar -->
-  <nav class="bg-gray-900 border-b border-green-500/40 shadow-lg fade-in sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
-      <div class="flex items-center space-x-3">
-        <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" alt="GamingDroid Logo" class="w-8 h-8 drop-shadow-lg animate-bounce">
-        <span class="font-bold text-xl text-green-400 tracking-wide">GamingDroid</span>
+<body class="min-h-screen bg-gradient-to-b from-[#071020] via-[#07192a] to-[#071522] text-slate-100 antialiased">
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/5 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-4">
+          <a href="#" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-md bg-gradient-to-br from-vortex-500 to-vortex-700 flex items-center justify-center shadow-neon-lg">
+              <!-- logo SVG -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M3 12a9 9 0 1118 0 9 9 0 01-18 0z" stroke="white" stroke-opacity="0.12" stroke-width="1.5"></path>
+                <path d="M7 12a5 5 0 005-5" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+              </svg>
+            </div>
+            <span class="font-semibold text-lg tracking-tight">GamingDroid (bêta)</span>
+          </a>
+          <nav class="hidden md:flex items-center space-x-2 ml-4">
+            <a href="#home" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-white/6 hover:bg-white/8">Accueil</a>
+            <a href="#store" class="px-3 py-2 rounded-md text-sm font-medium text-slate-200 hover:bg-white/4">Store</a>
+            <a href="#download" class="px-3 py-2 rounded-md text-sm font-medium text-slate-200 hover:bg-white/4">Télécharger</a>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="#store" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-vortex-500 to-vortex-700 hover:opacity-95 shadow">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M7 7v10m10-10v10M5 17a2 2 0 002 2h10a2 2 0 002-2" /></svg>
+            Store
+          </a>
+          <a href="#download" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-vortex-500 text-vortex-100 hover:bg-vortex-500/10">
+            Télécharger
+          </a>
+
+          <!-- mobile menu button -->
+          <button id="menuBtn" class="md:hidden p-2 rounded-md hover:bg-white/3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="space-x-6">
-        <a href="#infos" class="hover:text-green-400 transition font-medium">Infos</a>
-        <a href="#screenshots" class="hover:text-green-400 transition font-medium">Screenshots</a>
-        <a href="#installer" class="hover:text-green-400 transition font-medium">Installer</a>
+    </div>
+
+    <!-- mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <nav class="space-y-1">
+        <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-white/6">Accueil</a>
+        <a href="#store" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/4">Store</a>
+        <a href="#download" class="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-white/4">Télécharge GamingDroid</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="mt-12">
+    <!-- HERO -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
+            GamingDroid — La nouvelle expérience de gaming mobile
+          </h1>
+          <p class="mt-4 text-lg text-slate-300 max-w-2xl">
+            Parfait pour les gamers qui n'ont qu'un appareil Android.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#download" class="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-gradient-to-r from-vortex-500 to-vortex-700 text-white shadow-lg">
+              Télécharger
+            </a>
+            <a href="#store" class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-white/10 text-white/90 hover:bg-white/3">
+              Parcourir le store
+            </a>
+          </div>
+
+          <div class="mt-6 grid grid-cols-2 gap-3 max-w-sm">
+            <div class="bg-white/3 rounded px-3 py-2 text-sm">
+              <div class="text-slate-100 font-semibold">FPS Boost</div>
+              <div class="text-slate-300 text-xs">Optimisations en un clic</div>
+            </div>
+            <div class="bg-white/3 rounded px-3 py-2 text-sm">
+              <div class="text-slate-100 font-semibold">Mode Stream</div>
+              <div class="text-slate-300 text-xs">Overlay & widgets</div>
+            </div>
+          </div>
+        </div>
+
+    
+
+              <div class="mt-4">
+                <div class="text-xs text-slate-400">Applications recommandés</div>
+                <div class="mt-2 flex gap-2">
+                  <div class="flex-1 rounded bg-white/4 p-2 text-sm">YouTube</div>
+                  <div class="flex-1 rounded bg-white/4 p-2 text-sm">Xbox Cloud Gaming</div>
+                   <div class="flex-1 rounded bg-white/4 p-2 text-sm">Amazon Luna</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section id="screenshots" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-semibold">Screenshots</h2>
+        <p class="text-sm text-slate-400">Clique pour agrandir</p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- screenshot items -->
+        <button class="screenshot-card group rounded-lg overflow-hidden relative shadow" data-src="https://picsum.photos/id/1016/1200/700">
+          <img src="https://picsum.photos/id/1016/800/500" alt="Screenshot 1" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute bottom-3 left-3 bg-gradient-to-r from-black/40 to-black/20 px-3 py-1 rounded text-sm">Bureau — Mode néon</div>
+        </button>
+
+        <button class="screenshot-card group rounded-lg overflow-hidden relative shadow" data-src="https://picsum.photos/id/1011/1200/700">
+          <img src="https://picsum.photos/id/1011/800/500" alt="Screenshot 2" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute bottom-3 left-3 bg-gradient-to-r from-black/40 to-black/20 px-3 py-1 rounded text-sm">Overlay Stream</div>
+        </button>
+
+        <button class="screenshot-card group rounded-lg overflow-hidden relative shadow" data-src="https://picsum.photos/id/1019/1200/700">
+          <img src="https://picsum.photos/id/1019/800/500" alt="Screenshot 3" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute bottom-3 left-3 bg-gradient-to-r from-black/40 to-black/20 px-3 py-1 rounded text-sm">Centre de contrôle</div>
+        </button>
+
+        <button class="screenshot-card group rounded-lg overflow-hidden relative shadow" data-src="https://picsum.photos/id/1020/1200/700">
+          <img src="https://picsum.photos/id/1020/800/500" alt="Screenshot 4" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute bottom-3 left-3 bg-gradient-to-r from-black/40 to-black/20 px-3 py-1 rounded text-sm">Performance HUD</div>
+        </button>
+
+        <button class="screenshot-card group rounded-lg overflow-hidden relative shadow" data-src="https://picsum.photos/id/1024/1200/700">
+          <img src="https://picsum.photos/id/1024/800/500" alt="Screenshot 5" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute bottom-3 left-3 bg-gradient-to-r from-black/40 to-black/20 px-3 py-1 rounded text-sm">Custom Themes</div>
+        </button>
+
+        <button class="screenshot-card group rounded-lg overflow-hidden relative shadow" data-src="https://picsum.photos/id/1035/1200/700">
+          <img src="https://picsum.photos/id/1035/800/500" alt="Screenshot 6" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute bottom-3 left-3 bg-gradient-to-r from-black/40 to-black/20 px-3 py-1 rounded text-sm">Widgets & Stats</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4">
+      <div class="relative max-w-4xl w-full">
+        <button id="lightboxClose" class="absolute top-3 right-3 text-white p-2 bg-white/5 rounded hover:bg-white/10">
+          ✕
+        </button>
+        <img id="lightboxImg" src="" alt="Screenshot agrandi" class="rounded-lg w-full max-h-[80vh] object-contain"/>
       </div>
     </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section class="py-20 px-4 text-center bg-gradient-to-br from-gray-900 to-gray-800 fade-in">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-green-400 mb-6 drop-shadow-lg">Transformez votre Android en console de jeu portable</h1>
-    <p class="text-lg md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto">GamingDroid est un outil qui vous permet de transformer facilement votre appareil Android en une véritable console portable, avec une interface dédiée, des émulateurs intégrés, et une expérience gaming optimisée.</p>
-    <a href="#installer" class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-semibold px-10 py-4 rounded-xl shadow-lg transition pulse text-xl gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
-      Installer GamingDroid
-    </a>
-  </section>
+    <!-- STORE -->
+    <section id="store" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+      <h3 class="text-2xl font-semibold">Store</h3>
+      <p class="mt-2 text-slate-300 max-w-2xl">Télécharge des applications et des jeux pour GamingDroid.</p>
 
-  <!-- Infos Section -->
-  <section id="infos" class="max-w-5xl mx-auto py-16 px-4 fade-in">
-    <h2 class="text-3xl font-bold text-green-400 mb-6">Qu'est-ce que GamingDroid ?</h2>
-    <ul class="list-disc pl-8 text-lg mb-8 space-y-2">
-      <li>Interface optimisée pour le jeu sur écran tactile ou manette Bluetooth</li>
-      <li>Support multi-émulateur : rétro, arcade, console portable (GBA, PSP, etc...)</li>
-      <li>Bibliothèque de jeux personnalisable et gestion des ROMs</li>
-      <li>Mode performance & gestion de la batterie</li>
-      <li>Installation facile via un fichier .zip</li>
-      <li>Compatible avec Android 7.0 et plus</li>
-    </ul>
-    <div class="bg-gray-800/90 rounded-2xl p-8 text-gray-200 shadow-xl border border-green-500/20">
-      <p>GamingDroid est développé pour les passionnés de jeux vidéo qui veulent profiter de leur collection partout, sans compromis sur le plaisir ou la facilité d’utilisation. Personnalisez votre expérience, profitez des mises à jour régulières et rejoignez une communauté de gamers mobiles !</p>
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white/3 p-4 rounded-lg">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-semibold">NeoTheme</div>
+              <div class="text-sm text-slate-300">Thème néon complet</div>
+            </div>
+            <div class="text-vortex-100 font-bold">2.99€</div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="flex-1 px-3 py-2 rounded bg-vortex-500 text-white">Aperçu</button>
+            <button class="px-3 py-2 rounded border border-white/10">Ajouter</button>
+          </div>
+        </div>
+
+        <div class="bg-white/3 p-4 rounded-lg">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-semibold">FPS Booster</div>
+              <div class="text-sm text-slate-300">Optimisation automatique</div>
+            </div>
+            <div class="text-vortex-100 font-bold">Gratuit</div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="flex-1 px-3 py-2 rounded bg-vortex-500 text-white">Aperçu</button>
+            <button class="px-3 py-2 rounded border border-white/10">Installer</button>
+          </div>
+        </div>
+
+        <div class="bg-white/3 p-4 rounded-lg">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-semibold">Stream Overlay Pack</div>
+              <div class="text-sm text-slate-300">Widgets pour stream</div>
+            </div>
+            <div class="text-vortex-100 font-bold">4.99€</div>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="flex-1 px-3 py-2 rounded bg-vortex-500 text-white">Aperçu</button>
+            <button class="px-3 py-2 rounded border border-white/10">Acheter</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section id="download" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 mb-20">
+      <div class="rounded-xl bg-gradient-to-br from-white/4 to-white/2 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h4 class="text-xl font-semibold">Télécharger GamingDroid Public Beta</h4>
+            <p class="text-slate-300 mt-1">Version beta • beta1.0.0 • 2025</p>
+          </div>
+          <div class="flex gap-3">
+            <a href="#" class="px-4 py-2 rounded bg-vortex-500 text-white">Télécharger le fichier .zip</a>
+            <a href="#" class="px-4 py-2 rounded border border-white/10">Notes de version</a>
+          </div>
+        </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/5 mt-8 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-sm text-slate-400">
+      <div>© 2025 GamingDroid</div>
+      <div>Fabriqué avec Tailwind CSS</div>
     </div>
-  </section>
-
-  <!-- Screenshots Section -->
-  <section id="screenshots" class="max-w-5xl mx-auto py-16 px-4 fade-in">
-    <h2 class="text-3xl font-bold text-green-400 mb-8">Screenshots</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" alt="Menu GamingDroid" class="rounded-2xl shadow-lg border border-green-500/30 zoom-img transition">
-      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=400&q=80" alt="Jeu rétro sur GamingDroid" class="rounded-2xl shadow-lg border border-green-500/30 zoom-img transition">
-      <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Interface tactile GamingDroid" class="rounded-2xl shadow-lg border border-green-500/30 zoom-img transition">
-    </div>
-    <p class="mt-6 text-gray-400 text-base italic">Aperçu de l’interface et du lancement de jeux sur GamingDroid.</p>
-  </section>
-
-  <!-- Installer Section -->
-  <section id="installer" class="max-w-5xl mx-auto py-16 px-4 flex flex-col items-center fade-in">
-    <h2 class="text-3xl font-bold text-green-400 mb-6">Installer GamingDroid</h2>
-    <p class="mb-8 text-lg text-gray-300 text-center">Téléchargez le fichier <span class="font-mono text-green-300">GamingDroid.zip</span> et suivez les instructions pour installer sur votre appareil Android.</p>
-    <a href="GamingDroid.zip" download class="bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-xl shadow-xl transition pulse text-lg mb-3 flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
-      Télécharger le .zip
-    </a>
-    <p class="text-gray-400 text-base text-center">Fichier sécurisé. Vérifiez l’activation des sources inconnues dans les paramètres Android pour installer les applications présentes dans le fichier .zip.</p>
-  </section>
-
-  <!-- Contact / Social Section -->
-  <section class="max-w-5xl mx-auto py-8 px-4 flex justify-center gap-6 fade-in">
-    <a href="https://github.com/MxsbDream/GamingDroid" target="_blank" class="bg-gray-800 hover:bg-green-500 text-white rounded-full p-3 shadow-lg transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.386-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.304.762-1.604-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.468-2.381 1.236-3.221-.123-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.018.005 2.045.138 3.003.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.804 5.624-5.475 5.921.43.369.823 1.096.823 2.211 0 1.597-.015 2.885-.015 3.277 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-    </a>
-    <a href="#" class="bg-gray-800 hover:bg-green-500 text-white rounded-full p-3 shadow-lg transition">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-1.686-.597-3.487-.889-5.315-.889-1.827 0-3.628.292-5.314.889-1.682.596-3.191 1.473-4.457 2.635-2.533 2.366-3.927 5.497-3.927 8.864s1.394 6.498 3.927 8.864c1.266 1.162 2.775 2.039 4.457 2.635 1.686.597 3.487.889 5.314.889 1.828 0 3.629-.292 5.315-.889 1.682-.596 3.191-1.473 4.457-2.635 2.533-2.366 3.927-5.497 3.927-8.864s-1.394-6.498-3.927-8.864c-1.266-1.162-2.775-2.039-4.457-2.635zM12 21.634c-5.313 0-9.634-4.321-9.634-9.634s4.321-9.634 9.634-9.634 9.634 4.321 9.634 9.634-4.321 9.634-9.634 9.634zm-2.918-12.634c0-1.604 1.314-2.918 2.918-2.918s2.918 1.314 2.918 2.918-1.314 2.918-2.918 2.918-2.918-1.314-2.918-2.918z"/></svg>
-    </a>
-    <!-- Ajoute d'autres icônes/links si tu veux -->
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 mt-14 py-8 text-center text-gray-500 text-base fade-in">
-    © 2025 GamingDroid. Projet libre pour les gamers Android.<br>
-    <span class="text-green-400">Merci d'utiliser GamingDroid pour améliorer ton expérience de jeu sur Android. Un grand merci à Gamedeck ! </span>
   </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn && menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Simple lightbox for screenshots
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    document.querySelectorAll('.screenshot-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src = btn.getAttribute('data-src') || btn.querySelector('img').src;
+        lightboxImg.src = src;
+        lightbox.classList.remove('hidden');
+      });
+    });
+    lightboxClose && lightboxClose.addEventListener('click', () => {
+      lightbox.classList.add('hidden');
+      lightboxImg.src = '';
+    });
+    // close on background click
+    lightbox && lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.add('hidden');
+        lightboxImg.src = '';
+      }
+    });
+    // ESC to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        lightbox.classList.add('hidden');
+        lightboxImg.src = '';
+      }
+    });
+  </script>
 </body>
-                                                                                    </html>
+          </html>
