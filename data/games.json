@@ -1,0 +1,91 @@
+{
+  "games": [
+    {
+      "slug": "cs2",
+      "title": "Counter-Strike 2",
+      "developer": "Valve",
+      "price": 0,
+      "release_date": "2023-09-27",
+      "short_description": "Tactique de tir compétitive en équipe.",
+      "description": "<p>Counter-Strike 2 est la nouvelle génération du succès CS:GO, avec des mises à jour de moteur, une netteté d'images améliorée et des features pour les compétitions.</p>",
+      "steam_url": "https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/",
+      "buy_url": "https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/",
+      "header_image": "https://images.steamgriddb.com/file/sgdb-cdn/grid/1675/thumb-1675-portrait.jpg",
+      "images": [
+        "https://images.steamgriddb.com/file/sgdb-cdn/hero/1675/hero-1675-1.jpg",
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/1675/thumb-1675-1.jpg",
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/1675/thumb-1675-2.jpg"
+      ],
+      "tags": ["fps", "compétitif", "e-sport"]
+    },
+    {
+      "slug": "halo-infinite",
+      "title": "Halo Infinite",
+      "developer": "343 Industries",
+      "price": 0,
+      "release_date": "2021-12-08",
+      "short_description": "FPS narratif et multijoueur sur Xbox & PC.",
+      "description": "<p>Halo Infinite propose une campagne épique et un mode multijoueur moderne et gratuit.</p>",
+      "steam_url": "https://store.steampowered.com/app/1240440/Halo_Infinite/",
+      "buy_url": "https://store.steampowered.com/app/1240440/Halo_Infinite/",
+      "header_image": "https://images.steamgriddb.com/file/sgdb-cdn/grid/23918/thumb-23918-portrait.jpg",
+      "images": [
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/23918/thumb-23918-1.jpg",
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/23918/thumb-23918-2.jpg"
+      ],
+      "tags": ["fps", "science-fiction", "multijoueur"]
+    },
+    {
+      "slug": "cyberpunk-2077",
+      "title": "Cyberpunk 2077",
+      "developer": "CD Projekt RED",
+      "price": 29.99,
+      "release_date": "2020-12-10",
+      "short_description": "RPG en monde ouvert dans un univers cyberpunk.",
+      "description": "<p>Cyberpunk 2077, monde ouvert futuriste avec des quêtes narratives, customisation, et mods.</p>",
+      "steam_url": "https://store.steampowered.com/app/1091500/Cyberpunk_2077/",
+      "buy_url": "https://store.steampowered.com/app/1091500/Cyberpunk_2077/",
+      "header_image": "https://images.steamgriddb.com/file/sgdb-cdn/grid/3042/thumb-3042-portrait.jpg",
+      "images": [
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/3042/thumb-3042-1.jpg",
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/3042/thumb-3042-2.jpg",
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/3042/thumb-3042-3.jpg"
+      ],
+      "tags": ["rpg", "open-world", "singleplayer"]
+    },
+    {
+      "slug": "doom-eternal",
+      "title": "DOOM Eternal",
+      "developer": "id Software",
+      "price": 19.99,
+      "release_date": "2020-03-20",
+      "short_description": "Action frénétique et combats contre des hordes démoniaques.",
+      "description": "<p>DOOM Eternal offre du gameplay rapide, du gore stylisé et une bande-son heavy metal.</p>",
+      "steam_url": "https://store.steampowered.com/app/782330/DOOM_Eternal/",
+      "buy_url": "https://store.steampowered.com/app/782330/DOOM_Eternal/",
+      "header_image": "https://images.steamgriddb.com/file/sgdb-cdn/grid/4666/thumb-4666-portrait.jpg",
+      "images": [
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/4666/thumb-4666-1.jpg",
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/4666/thumb-4666-2.jpg"
+      ],
+      "tags": ["action", "fps", "solo"]
+    },
+    {
+      "slug": "hades",
+      "title": "Hades",
+      "developer": "Supergiant Games",
+      "price": 24.99,
+      "release_date": "2020-09-17",
+      "short_description": "Rogue-like narratif acclamé par la critique.",
+      "description": "<p>Affronte les enfers, améliore ton héros et découvre une histoire riche au fil des runs.</p>",
+      "steam_url": "https://store.steampowered.com/app/1145360/Hades/",
+      "buy_url": "https://store.steampowered.com/app/1145360/Hades/",
+      "header_image": "https://images.steamgriddb.com/file/sgdb-cdn/grid/1651/thumb-1651-portrait.jpg",
+      "images": [
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/1651/thumb-1651-1.jpg",
+        "https://images.steamgriddb.com/file/sgdb-cdn/grid/1651/thumb-1651-2.jpg"
+      ],
+      "tags": ["roguelike", "indie", "action"]
+    }
+  ]
+    }
