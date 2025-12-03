@@ -1,1 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GamingDroid Store</title>
+  <meta name="description" content="Store GamingDroid — thèmes, jeux et utilitaires">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* fallback pour images qui ne chargent pas */
+    .img-fallback { background: linear-gradient(135deg,#0b2030,#071522); }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-[#071020] to-[#071522] text-slate-100 min-h-screen">
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 bg-white/3 backdrop-blur border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-md bg-gradient-to-br from-blue-500 to-indigo-700 flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1118 0 9 9 0 01-18 0z" stroke="white" stroke-opacity="0.12" stroke-width="1.5"/></svg>
+        </div>
+        <span class="font-semibold">GamingDroid</span>
+      </a>
 
+      <nav class="hidden md:flex gap-3">
+        <a href="index.html" class="px-3 py-2 rounded bg-white/6">Accueil</a>
+        <a href="#" class="px-3 py-2 rounded bg-gradient-to-r from-blue-500 to-indigo-700">Store</a>
+        <a href="index.html#download" class="px-3 py-2 rounded border">Télécharger</a>
+      </nav>
+
+      <div class="md:hidden">☰</div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl font-bold">Store</h1>
+      <div class="flex items-center gap-3">
+        <input id="search" type="search" placeholder="Rechercher un jeu..." class="px-3 py-2 rounded bg-white/5 outline-none"/>
+        <select id="filter" class="px-3 py-2 rounded bg-white/5">
+          <option value="all">Tous</option>
+          <option value="free">Gratuit</option>
+          <option value="paid">Payant</option>
+          <option value="apps">Applications</option>
+          <option value="games">Jeux</option>
+          
+        </select>
+      </div>
+    </div>
+
+    <p class="text-slate-400 mt-2">Clique sur un jeu pour voir sa page de détail.</p>
+
+    <div id="gamesGrid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-4 py-6 text-sm text-slate-400">
+    © 2025 GamingDroid 
+  </footer>
+
+  <script>
+    // Charge la liste des jeux et construit le UI
+    async function loadGames() {
+      try {
+        const res = await fetch('data/games.json');
+        const data = await res.json();
+        window.GAMES = data.games;
+        renderGames(window.GAMES);
+      } catch (e) {
+        console.error('Impossible de charger games.json', e);
+        document.getElementById('gamesGrid').innerHTML = '<div class="text-red-400">Erreur de chargement des jeux.</div>';
+      }
+    }
+
+    function renderGames(list) {
+      const grid = document.getElementById('gamesGrid');
+      grid.innerHTML = '';
+      if (!list.length) {
+        grid.innerHTML = '<div class="text-slate-400">Aucun jeu trouvé.</div>';
+        return;
+      }
+
+      list.forEach(game => {
+        const card = document.createElement('article');
+        card.className = 'bg-white/4 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02]';
+
+        card.innerHTML = `
+          <a href="game.html?slug=${encodeURIComponent(game.slug)}" class="block">
+            <div class="w-full h-44 bg-black img-fallback overflow-hidden">
+              <img loading="lazy" src="${game.header_image}" alt="${escapeHtml(game.title)}" class="w-full h-full object-cover transition-transform duration-300"/>
+            </div>
+            <div class="p-4">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="font-semibold">${escapeHtml(game.title)}</h3>
+                  <div class="text-sm text-slate-300">${escapeHtml(game.developer)}</div>
+                </div>
+                <div class="text-indigo-300 font-bold">${game.price === 0 ? 'Gratuit' : (game.price + '€')}</div>
+              </div>
+              <p class="mt-3 text-sm text-slate-300 line-clamp-3">${escapeHtml(game.short_description)}</p>
+            </div>
+          </a>
+        `;
+
+        // fallback si image 404
+        const img = card.querySelector('img');
+        img.addEventListener('error', () => {
+          img.src = 'https://picsum.photos/seed/' + encodeURIComponent(game.slug) + '/800/450';
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (m) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+      });
+    }
+
+    // Search & filter
+    document.getElementById('search').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      const filtered = (window.GAMES || []).filter(g => g.title.toLowerCase().includes(q) || (g.tags||[]).join(' ').toLowerCase().includes(q));
+      const filterVal = document.getElementById('filter').value;
+      const final = applyFilter(filtered, filterVal);
+      renderGames(final);
+    });
+
+    document.getElementById('filter').addEventListener('change', (e) => {
+      const val = e.target.value;
+      const q = document.getElementById('search').value.toLowerCase();
+      const filtered = (window.GAMES || []).filter(g => g.title.toLowerCase().includes(q) || (g.tags||[]).join(' ').toLowerCase().includes(q));
+      renderGames(applyFilter(filtered, val));
+    });
+
+    function applyFilter(list, val) {
+      if (val === 'all') return list;
+      if (val === 'free') return list.filter(g => g.price === 0);
+      if (val === 'paid') return list.filter(g => g.price > 0);
+      return list;
+    }
+
+    loadGames();
+  </script>
+</body>
+      </html>
